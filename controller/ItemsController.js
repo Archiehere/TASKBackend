@@ -18,7 +18,7 @@ const create = async (req,res,next) => {
             return next(new ErrorHandler(400,"Unauthorized"));
         }
         
-        const item = await user.createitem({
+        const item = await user.createItem({
             text,
         });
        
