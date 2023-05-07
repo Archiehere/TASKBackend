@@ -8,7 +8,6 @@ router.get('/',authController.home);
 
 router.post('/email',authController.email);
 router.post('/email/verify',authController.everify);
-router.post('/signup',authverifytoken,authController.signup);
 
 router.post('/login', authController.login);
 
