@@ -67,7 +67,7 @@ const email = async (req,res) => {
 
 const everify = async (req,res) => {
     try {
-        const {email,otp} = req.body;
+        const {email,otp,password} = req.body;
         if (!otp) {
             return next(new ErrorHandler(400,"Input is required"));
         }
@@ -89,7 +89,8 @@ const everify = async (req,res) => {
         let user;
         if(!prev){
             user  = await User.create({
-                email:email.toLowerCase()
+                email:email.toLowerCase(),
+                password:password
             });
         }else{
             user = prev;
@@ -110,75 +111,6 @@ const everify = async (req,res) => {
     }
 }
 
-const signup = async (req,res)=>{
-    try{
-        const {
-            name,
-            user_name,
-            password
-        } = req.body;
-        const user = req.user;
-        const ev = await User.findOne({
-            where:{
-                email:user.email
-            }
-        });
-        if(ev.isSignedup==true)
-        return next(new ErrorHandler(400,"Account Already made"));
-        if (!(user_name && password)) {
-            return next(new ErrorHandler(400,"All Inputs required"));
-        }
-
-        if(!regexval.validateusername(user_name)){
-            return next(new ErrorHandler(400,"Incorrect Username Format"));
-        }
-
-        if(!regexval.validatepass(password)){
-            return next(new ErrorHandler(400,"Incorrect Password Format"));
-        }
-        const oldUser = await User.findOne({
-            where:{
-                user_name
-            }
-        });
-        if (oldUser) {
-            return next(new ErrorHandler(400,"Username Already Exists"));
-        }
-        const encryptedPassword = await bcrypt.hash(password, 12);
-        let updateuser;
-        if(name){
-            updateuser = await User.update({
-                name,
-                user_name,
-                password:encryptedPassword,
-                isSignedup:true
-            },{
-                where:{
-                    email:user.email
-                }
-            });
-        }else{
-            updateuser = await User.update({
-                user_name,
-                password:encryptedPassword,
-                isSignedup:true
-            },{
-                where:{
-                    email:user.email
-                }
-            });
-        }
-
-        let madeuser = await User.findByPk(user._id,{
-            attributes:['_id','name','user_name']
-        });
-        
-        return res.status(200).json({success:true,msg:`Welcome to TASKBackend, ${user_name}!`,user:madeuser});
-        
-    } catch (err) {
-      next(err);
-    }
-}
 
 const login = async (req, res) => {
     try {
@@ -387,7 +319,6 @@ module.exports = {
     home,
     email,
     everify,
-    signup,
     login,
     forgotpwd,
     fverify,
