@@ -67,8 +67,8 @@ const email = async (req,res,next) => {
 
 const everify = async (req,res,next) => {
     try {
-        const {email,otp,password} = req.body;
-        if (!otp || !password) {
+        const {email,otp,password,name} = req.body;
+        if (!otp || !password || ! name) {
             return next(new ErrorHandler(400,"Input is required"));
         }
 
@@ -96,7 +96,8 @@ const everify = async (req,res,next) => {
         if(!prev){
             user  = await User.create({
                 email:email.toLowerCase(),
-                password:encryptedPassword
+                password:encryptedPassword,
+                name:name
             });
         }else{
             user = prev;
