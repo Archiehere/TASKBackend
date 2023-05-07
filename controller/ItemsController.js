@@ -21,7 +21,7 @@ const create = async (req,res,next) => {
         const item = await user.createItem({
             text,
         });
-       
+        console.log(item);
             return res.status(201).json({success:true,msg:"Created item",id:item._id});
     } catch (err) {
         //console.log(err);

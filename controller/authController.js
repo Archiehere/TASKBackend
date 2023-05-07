@@ -113,7 +113,7 @@ const everify = async (req,res,next) => {
 
 
 
-const login = async (req, res) => {
+const login = async (req, res,next) => {
     try {
         const { 
             email,
@@ -126,7 +126,7 @@ const login = async (req, res) => {
             where:{
                 email:email.toLowerCase()
             },
-            attributes:['_id','name','user_name','displaypic','password']
+            attributes:['_id','name','password']
         });
         if (!user || (user && user.isSignedup==false))
         return next(new ErrorHandler(400,"This email doesn't have an account"));
@@ -135,7 +135,7 @@ const login = async (req, res) => {
         if (!result) return next(new ErrorHandler(400,"Wrong Password"));
 
         const token = jwt.sign({_id:user._id},process.env.jwtsecretkey1,{expiresIn:"2d"});
-        return res.status(200).json({sucess: true,msg:`Welcome back! ${user.user_name}`,token,user});
+        return res.status(200).json({sucess: true,msg:`Welcome back! ${user.name}`,token,user});
     } catch (err) {
         next(err);
     }
