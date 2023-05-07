@@ -10,7 +10,6 @@ const item = require('./models/ItemModel');
 require('dotenv').config();
 const app = express();
 const cors=require('cors');
-const { errorMiddleware } = require('./middleware/errors');
 
 app.use(cors({origin:true}));
 app.use(express.json());
