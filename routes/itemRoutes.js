@@ -8,6 +8,8 @@ router.get('/item/:itemId',authverifytoken,ItemsController.getitem)
 
 router.post('/create',authverifytoken,ItemsController.create);
 
+router.put('/update',authverifytoken,ItemsController.updateitem);
+
 router.delete('/delete/:id',authverifytoken,ItemsController.delitem);
 
 module.exports = router;

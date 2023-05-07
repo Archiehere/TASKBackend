@@ -70,6 +70,29 @@ const delitem = async (req,res,next) => {
 }
 
 
+const updateitem = async (req,res,next) => {
+    try {
+        const {id} = req.params;
+        const {text} = req.body;
+        const user = req.user;
+        const updateditem = await item.update({
+            text: text
+        },{
+            where:{
+                _id:id,
+                userId:user._id
+            }
+        });
+        console.log(deleteditem);
+        
+            return res.status(200).json({success:true,msg:'Updated item'});
+        
+    } catch (err) {
+        console.log(err);
+        next(err);
+    }
+}
+
 
 
 
@@ -79,5 +102,6 @@ const delitem = async (req,res,next) => {
 module.exports = {
     create,
     delitem,
-    getitem
+    getitem,
+    updateitem
 }
