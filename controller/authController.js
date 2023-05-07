@@ -71,6 +71,12 @@ const everify = async (req,res,next) => {
         if (!otp || !password) {
             return next(new ErrorHandler(400,"Input is required"));
         }
+
+        if(!regexval.validatepass(password)){
+            return res.status(400).json({sucess:false,msg:"Incorrect Password Format"});
+          }
+        
+          const encryptedPassword = await bcrypt.hash(password, 12);
         const otpdb = await Otp.findOne({
             where:{
                 email:email.toLowerCase()
@@ -90,7 +96,7 @@ const everify = async (req,res,next) => {
         if(!prev){
             user  = await User.create({
                 email:email.toLowerCase(),
-                password:password
+                password:encryptedPassword
             });
         }else{
             user = prev;
