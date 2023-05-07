@@ -170,7 +170,7 @@ const signup = async (req,res)=>{
         }
 
         let madeuser = await User.findByPk(user._id,{
-            attributes:['_id','name','user_name','displaypic']
+            attributes:['_id','name','user_name']
         });
         
         return res.status(200).json({success:true,msg:`Welcome to TASKBackend, ${user_name}!`,user:madeuser});

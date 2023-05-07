@@ -1,5 +1,5 @@
 const express = require('express');
-
+const {errorMiddleware} = require('./middleware/errors');
 const {sequelize} = require('./utils/database');
 const authRoutes = require('./routes/authRoutes');
 const itemRoutes = require('./routes/itemRoutes');
@@ -10,6 +10,7 @@ const item = require('./models/ItemModel');
 require('dotenv').config();
 const app = express();
 const cors=require('cors');
+const { errorMiddleware } = require('./middleware/errors');
 
 app.use(cors({origin:true}));
 app.use(express.json());
@@ -40,8 +41,8 @@ app.use(express.static(__dirname + '/public'));
 app.use('/uploads', express.static('uploads'));
 
 
+app.use(errorMiddleware);
 
+app.use('/t',itemRoutes,errorMiddleware);
 
-app.use('/t',itemRoutes);
-
-app.use(authRoutes);
+app.use(authRoutes,errorMiddleware);
