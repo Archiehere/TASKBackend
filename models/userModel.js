@@ -22,10 +22,6 @@ const User = sequelize.define('user', {
     password: {
         type: Sequelize.STRING,
         defaultValue: null
-    },
-    isSignedup:{
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
     }
 });
 

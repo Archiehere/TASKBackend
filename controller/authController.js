@@ -31,7 +31,7 @@ const email = async (req,res,next) => {
                 email:email.toLowerCase()
             }
         });
-        if(oldMail && oldMail.isSignedup==true){
+        if(oldMail){
             return next(new ErrorHandler(400,"User by this email already exists"));
         }
 
@@ -128,7 +128,7 @@ const login = async (req, res,next) => {
             },
             attributes:['_id','name','password']
         });
-        if (!user || (user && user.isSignedup==false))
+        if (!user)
         return next(new ErrorHandler(400,"This email doesn't have an account"));
 
         const result = await bcrypt.compare(password, user.password);

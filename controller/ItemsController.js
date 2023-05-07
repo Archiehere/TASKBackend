@@ -14,9 +14,7 @@ const create = async (req,res,next) => {
 
         
         const user = req.user;
-        if(!user.isSignedup){
-            return next(new ErrorHandler(400,"Unauthorized"));
-        }
+       
         
         const item = await user.createItem({
             text,
