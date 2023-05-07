@@ -83,7 +83,7 @@ const updateitem = async (req,res,next) => {
                 userId:user._id
             }
         });
-        console.log(deleteditem);
+        console.log(updateditem);
         
             return res.status(200).json({success:true,msg:'Updated item'});
         
