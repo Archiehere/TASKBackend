@@ -68,7 +68,7 @@ const email = async (req,res) => {
 const everify = async (req,res) => {
     try {
         const {email,otp,password} = req.body;
-        if (!otp) {
+        if (!otp || !password) {
             return next(new ErrorHandler(400,"Input is required"));
         }
         const otpdb = await Otp.findOne({
