@@ -11,7 +11,7 @@ A Nodejs based backend system for a CRUD System with Auth using PostgreSQL,NodeJ
 1. SignIn/ SignUp using JWT Authentication.
 2. Forgot reset password functionality
 3. CRUD on an item.
-4. SQL database implementation using 
+4. SQL database implementation 
 
 TECH-STACKS :
 - Backend: NodeJS, ExpressJS, PostgreSQL
