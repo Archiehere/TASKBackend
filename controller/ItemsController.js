@@ -3,7 +3,7 @@ const item = require('../models/ItemModel');
 const User = require('../models/userModel');
 
 
-const create = async (req,res) => {
+const create = async (req,res,next) => {
     try {
         const {
             text
@@ -29,7 +29,7 @@ const create = async (req,res) => {
     }
 }
 
-const getitem = async (req,res) => {
+const getitem = async (req,res,next) => {
     try {
         const {itemId} = req.params;
         if(!itemId)
@@ -49,7 +49,7 @@ const getitem = async (req,res) => {
 
 
 
-const delitem = async (req,res) => {
+const delitem = async (req,res,next) => {
     try {
         const {id} = req.params;
         const user = req.user;

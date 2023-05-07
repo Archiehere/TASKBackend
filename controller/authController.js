@@ -8,7 +8,7 @@ const Otp = require('../models/otpModel');
 const regexval = require("../middleware/validate");
 require('dotenv').config();
 
-const home = async (req,res) => {
+const home = async (req,res,next) => {
     try {
         return res.send('Welcome to backend');
     } catch (error) {
@@ -17,7 +17,7 @@ const home = async (req,res) => {
     }
 };
 
-const email = async (req,res) => {
+const email = async (req,res,next) => {
     try {
         const {email} = req.body;
         if(!email)
@@ -65,7 +65,7 @@ const email = async (req,res) => {
     }
 }
 
-const everify = async (req,res) => {
+const everify = async (req,res,next) => {
     try {
         const {email,otp,password} = req.body;
         if (!otp || !password) {
@@ -141,7 +141,7 @@ const login = async (req, res) => {
     }
 }
 
-const forgotpwd = async (req,res) => {
+const forgotpwd = async (req,res,next) => {
     try {
         const {email} = req.body;
 
@@ -194,7 +194,7 @@ const forgotpwd = async (req,res) => {
     }
 }
 
-const fverify = async (req,res) => {
+const fverify = async (req,res,next) => {
     try {
         const {
             email,
@@ -244,7 +244,7 @@ const fverify = async (req,res) => {
     }
 }
 
-const resetpass = async(req,res) => {
+const resetpass = async(req,res,next) => {
     try {
         const {password} = req.body;
         if(!password)
@@ -270,7 +270,7 @@ const resetpass = async(req,res) => {
     }
 }
 
-const resendotp = async (req,res) => {
+const resendotp = async (req,res,next) => {
     try {
         const {email} = req.body;
 
